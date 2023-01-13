@@ -1,0 +1,14 @@
+{
+  "name": "nova-pasta",
+  "version": "1.0.0",
+  "description": "Projeto de fixação node",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
