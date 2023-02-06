@@ -5,7 +5,7 @@ const total = numeros.reduce((acumulador,valor,indice,array) => {
     //console.log(acumulador,valor)
     return acumulador
 },0)
-
+console.log(total);
 const pares = numeros.reduce((acumulador,valor,indice,array) => {
     if(valor % 2 === 0 ){
         acumulador.push(valor)    

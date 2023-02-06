@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    
+    function Produto(nome, preco){
+        this.nome = nome;
+        this.preco = preco;
+    }
+    Produto.prototype.desconto = function(des){
+        return this.preco = this.preco - (this.preco * (des / 100));
+    }
+    
+    function Camiseta(nome, preco, cor, estoque){
+        Produto.call(this, nome, preco);
+        Object.defineProperties(this, {
+            cor:{              
+                enumerable:true,
+                configurable:false,
+                set: function(vl){
+                    if(typeof vl !== 'string'){
+                        throw new TypeError('Mensagem');
+                        return;
+                    }
+                    cor = vl;
+                },
+                get: function(){return cor;}
+            },
+            estoque:{
+                enumerable:true,
+                configurable:false,
+                set: function(vl){
+                    if(typeof vl !== 'number'){
+                        throw new TypeError('Mensagem');
+                        return;
+                    }
+                    estoque = vl;
+                },
+                get: function(){return estoque;}
+            }
+        });
+    }
+    Camiseta.prototype = Object.create(Produto.prototype);
+    Camiseta.prototype.constructor = Camiseta;
+    
+    const camisa = new Camiseta('regatas',90,'azul',5);
+    camisa.desconto(50);
+    camisa.estoque = 90;
+    console.dir(camisa);
+    
+    
+    
+    // function Caneca(nome, preco, material, cor){
+    //     Produto.call(this, nome, preco);
+    //     this.material = material;
+    //     this.cor = cor;
+    // }
+    // Caneca.prototype = Object.create(Produto.prototype)
+    // Caneca.prototype.constructor = Caneca 
+    
+    // const caneca = new Caneca('caneca', 90, 'vidro', 'azul');
+    
+    // caneca.desconto(50)
+    // console.dir(caneca);
+    </script>
+</html>

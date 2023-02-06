@@ -1,0 +1,29 @@
+<script>
+function Produto(preco, quantidade){
+    this.preco = preco;
+    this.quantidade = quantidade;
+}
+
+Produto.prototype.deconto = function(des){
+    return this.preco - (this.preco * (des / 100));
+}
+
+Produto.prototype.aumento = function(au){
+    return this.preco + (this.preco * (au / 100));
+}
+
+
+const p1 = new Produto(1000, 5);
+
+const p2 = Object.create(Produto.prototype,{
+    preco:{
+        enumerable:true,
+        value: 60,
+        writable: true,
+        configurable:false
+    }
+})
+
+console.log(p2.aumento(50));
+
+</script>
