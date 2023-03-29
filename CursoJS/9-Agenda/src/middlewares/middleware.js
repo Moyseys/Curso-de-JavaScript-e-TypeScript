@@ -11,6 +11,15 @@ exports.outro = (req, res, next) =>{
     next()
 }
 
+exports.loginRequired = (req, res, next) => {
+    if(!req.session.user) {
+      req.flash('error', 'Você precisa fazer login.')
+      req.session.save(() => res.redirect('/login/index') )
+      return
+    }
+
+    next()
+}
 exports.checjkError = (err, req, res, next) => {
     if(err){ //&& err.code === 'EBADCSRFTOKEN'
         console.log(err)

@@ -7,18 +7,34 @@
 
         <div class="col-lg-8 my-3">
             <h1 class=" text-center my-5">Agenda</h1>
-            <p class="text-center leand">Seus contatos estão abixo</p>
-        
-            <div class="responsive-table">
-                <table class="table my-3">
-                    <tr>
-                        <td>Luiz</td>
-                        <td>Otavio</td>
-                        <td>19-8933-3873</td>
-                        <td>Otavio mirando.com</td>
-                    </tr>
-                </table>
-            </div>
+            <% if(contatos.length > 0) { %>
+                <p class="text-center leand">Seus contatos estão abixo</p>
+                <%- include('includes/errors')%>
+                <div class="responsive-table">
+                    <table class="table my-3">
+                        <tr style="color: aliceblue; text-align: center;">
+                            <td>Nome</td>
+                            <td>Sobrenome</td>
+                            <td>Email</td>
+                            <td>Contato.telefone</td>
+                            <td>Editar</td>
+                            <td>Excluir</td>
+                        </tr>
+                    <% contatos.forEach(contato => {%>
+                        <tr style="color: aliceblue; text-align: center;">
+                            <td><%= contato.nome %></td>
+                            <td><%= contato.sobrenome %></td>
+                            <td><%= contato.email %></td>
+                            <td><%= contato.telefone %></td>
+                            <td><a href="contato/index/<%= contato.id%>">Editar</a></td>
+                            <td><a class="text-danger" href="contato/delete/<%= contato.id%>">Excluir</a></td>
+                        </tr>
+                    <% }) %>
+                    </table>
+                </div>
+            <% } else { %>
+                <p class="text-center lead">Não existem contatos na sua agenda.</p>
+            <% } %>
         </div>
 
         <div class="col-lg-2"></div>

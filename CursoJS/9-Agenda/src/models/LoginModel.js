@@ -84,7 +84,7 @@ class Login{
             this.user = null;
             return;
           }
-        return console.log(this.user)
+        return
 
     }
 

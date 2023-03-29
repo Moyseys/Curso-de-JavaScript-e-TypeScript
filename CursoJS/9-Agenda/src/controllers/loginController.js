@@ -1,4 +1,5 @@
 
+const { async } = require('regenerator-runtime')
 const {Register, Login} = require('../models/LoginModel')
 
 exports.index = (req, res) => {
@@ -25,7 +26,6 @@ exports.register = async function (req, res){
             return
         })
     }catch(e){
-        console.log(e)
         res.render('404')
     }
 }
@@ -52,7 +52,11 @@ exports.login = async function (req, res){
         return
 
     }catch(e){
-        console.log(e)
         res.render('404')
     }
+}
+
+exports.logout = function(req, res) {
+    req.session.destroy()
+    res.redirect('/')
 }
