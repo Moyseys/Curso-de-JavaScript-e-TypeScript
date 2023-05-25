@@ -1,6 +1,9 @@
 import React, {Component} from 'react'
 
-import { FaPlus, FaEdit, FaWindowClose } from 'react-icons/fa'
+import { FaEdit, FaWindowClose } from 'react-icons/fa'
+
+import Form from './form/'
+import Tasks from './tasks'
 
 import './main.css'
 //component stateles -> estatico -> function
@@ -64,6 +67,7 @@ export default class Main extends Component{
         newsTasks[index] = newTask
 
         return this.setState({
+            index: -1,
             tasks: newsTasks,
             newTask: ''
         })
@@ -94,51 +98,18 @@ export default class Main extends Component{
         const { newTask, tasks } = this.state
 
         return(
-            <>
-                <form action="#" onSubmit={this.handleSubmit}>
-                    {/* 
-                    onChange é captura o evento de 
-                    "chage" e chama a function "handleChange()"
-
-                    Além disso é usado "{" para escrever
-                    js no jsx
-                    */}
-                    <h1>Lista de tarefas</h1>
-                    <div className='cont-newTask'>
-                        <input 
-                        className='newTask' 
-                        onChange={this.handleChange} 
-                        type='text'
-                        value={newTask}
-                        />
-                        <button type='submit'>
-                            <FaPlus />{/*FaPlus é um component*/}
-                        </button>
-                    </div>
-                    <div className='tasks'>
-                    <ul>
-                        {tasks.map((task, index) => (
-                            <li key={task}>
-                                {task}
-                                <div className='cont-edit-delet'>
-
-                                    <FaEdit 
-                                        onClick={(e) => this.handleEdit(e, index)} 
-                                        className='edit'
-                                    />
-
-                                    <FaWindowClose 
-                                        onClick={(e) => this.handleDelet(e, index)} 
-                                        className='delet'
-                                    />
-                                </div>
-                            </li>
-                        )
-                        )}
-                    </ul>
-                </div>
-                </form>
-            </>
+            <div className='conteiner'>
+                <Form
+                    handleChange={this.handleChange}
+                    handleSubmit={this.handleSubmit}
+                    newTask={newTask}
+                />
+                <Tasks 
+                    tasks={tasks}
+                    handleDelet={this.handleDelet}
+                    handleEdit={this.handleEdit}
+                />
+            </div>
         )
     }
 }
