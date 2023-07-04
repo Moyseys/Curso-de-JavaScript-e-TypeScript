@@ -1,4 +1,4 @@
-import {legacy_createStore as createStore, applyMiddleware} from 'redux'
+import { legacy_createStore as createStore, applyMiddleware } from 'redux'
 import { persistStore } from 'redux-persist'
 import createSagaMiddleware from 'redux-saga'
 
@@ -9,10 +9,10 @@ import rootSaga from './modules/rootSaga'
 
 const sagaMiddleware = createSagaMiddleware()
 
-const store = createStore (
+const store = createStore(
     persistedReducers(rootReducer),
     applyMiddleware(sagaMiddleware)
-    )
+)
 
 sagaMiddleware.run(rootSaga)
 

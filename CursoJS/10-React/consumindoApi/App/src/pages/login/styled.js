@@ -1,11 +1,11 @@
 import styled from 'styled-components'
 
-import {secondColor, primaryColor, tertiaryColor } from '../../config/colors'
+import { secondColor, primaryColor, tertiaryColor } from '../../config/colors'
 export const Form = styled.form`
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    color: ${secondColor}
     h1{
         margin-bottom: 40px;
     }
@@ -18,7 +18,6 @@ export const Form = styled.form`
 
     input{
         padding: 10px;
-        color: black;
         font-size: 18px;
         border-radius: 5px;
         background: transparent;

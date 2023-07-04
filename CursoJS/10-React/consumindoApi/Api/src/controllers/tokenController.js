@@ -11,7 +11,12 @@ class TokenController {
         });
       }
 
-      const user = await User.findOne({ where: { email } });
+      const user = await User.findOne({
+        where: { email },
+        attributes: {
+          exclude: ['created_at', 'updated_at'],
+        },
+      });
       if (!user) {
         return res.status(401).json({
           errors: ['Este usuario não existe'],
@@ -29,8 +34,14 @@ class TokenController {
         expiresIn: process.env.TOKEN_EXPIRATION,
       });
 
-      return res.json(token);
+      const userName = user.nome;
+      const userEmail = user.email;
+
+      return res.json({
+        token, user: { id, userName, userEmail },
+      });
     } catch (e) {
+      console.log(e);
       return res.json(null);
     }
   }

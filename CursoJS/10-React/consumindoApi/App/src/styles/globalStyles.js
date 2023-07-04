@@ -9,7 +9,6 @@ export default createGlobalStyle`
         border: none;
         outline: none;
         display: border-box;
-        color: #fff;
         font-family: Arial, Helvetica, sans-serif;
     }
 
@@ -45,4 +44,6 @@ export const Conteiner = styled.section`
     margin: 30px auto;
     border-radius: 10px;
     border: 3px solid #000;
+
+    color: #fff;
 ` 

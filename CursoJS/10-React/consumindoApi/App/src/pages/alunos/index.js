@@ -1,34 +1,66 @@
-import React, { useEffect, useState}from "react"
-import { FaUserCircle, FaEdit, FaWindowClose } from 'react-icons/fa'
+import React, { useEffect, useState } from "react"
+import { FaUserCircle, FaEdit, FaWindowClose, FaExclamation } from 'react-icons/fa'
 
 import { get } from 'lodash'
 
 import axios from '../../service/axios'
+import { toast } from 'react-toastify'
 import { Link } from 'react-router-dom'
 
-import {Conteiner} from '../../styles/globalStyles'
-import { AlunosContainer, ProfilePicture} from "./styled"
+import Loding from '../../components/loading/'
+import { Conteiner } from '../../styles/globalStyles'
+import { AlunosContainer, ProfilePicture, CriarNovoAluno } from "./styled"
 
-export default function Aluno(){
-    const [alunos, setState] = useState([])
+export default function Aluno() {
+    const [alunos, setAlunos] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
-        async function getAlunos(){
+        async function getAlunos() {
+            setIsLoading(true)
             const response = await axios.get('/alunos')
-            console.log(response.data);
-            setState(response.data)
+            setAlunos(response.data)
+            setIsLoading(false)
         }
 
         getAlunos()
-    },[])
+    }, [])
 
+
+    const handleDeleteAsk = (e) => {
+        e.preventDefault()
+        const exclamtion = e.currentTarget.nextSibling
+        exclamtion.setAttribute('display', 'block')
+
+        e.currentTarget.remove()
+    }
+
+    const handleDelete = async (e, id, index) => {
+        e.preventDefault()
+        e.persist()
+        try {
+            await axios.delete(`/alunos/${id}`)
+            toast.success('Aluno excluido com sucesso')
+            const newState = [...alunos]
+            newState.splice(index, 1)
+            return setAlunos(newState)
+        } catch (error) {
+            const status = get(error, 'response.status', 0)
+
+            if (status === 401) {
+                return toast.error('Usuário inválido')
+            }
+            return toast.error('Ocorreu um erro ineperado')
+        }
+    }
 
     return (
         <Conteiner>
+            <Loding isloading={isLoading} />
+            <CriarNovoAluno to="/aluno">Criar novo aluno</CriarNovoAluno>
             <AlunosContainer>
-                {alunos.map((aluno) => (
+                {alunos.map((aluno, index) => (
                     <div key={String(aluno.id)}>
-                        <img src={aluno?.Fotos[0]?.url || ''} />
                         <ProfilePicture>
                             {
                                 get(alunos, 'Fotos[0].url', false) ? (
@@ -41,10 +73,11 @@ export default function Aluno(){
                         <span>{aluno.nome}</span>
                         <span>{aluno.email}</span>
                         <Link to={`aluno/${aluno.id}/edit`}>
-                            <FaEdit size={18}/>
+                            <FaEdit color="#fff" size={18} />
                         </Link>
                         <Link to={`aluno/${aluno.id}/delete`}>
-                            <FaWindowClose size={18}/>
+                            <FaWindowClose onClick={handleDeleteAsk} color="#fff" size={18} />
+                            <FaExclamation onClick={e => handleDelete(e, aluno.id, index)} color="#fff" size={18} display='none' cursor='pointer' />
                         </Link>
                     </div>
                 ))}

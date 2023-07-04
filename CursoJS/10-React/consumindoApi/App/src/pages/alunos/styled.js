@@ -1,4 +1,6 @@
-import styled from 'styled-components'  
+import styled from 'styled-components'
+import * as colors from '../../config/colors'
+import { Link } from 'react-router-dom'
 
 export const AlunosContainer = styled.div`
     div {
@@ -12,6 +14,10 @@ export const AlunosContainer = styled.div`
         border-top: 3px solid #fff;
     }
 
+`
+
+export const CriarNovoAluno = styled(Link)`
+    color: ${colors.tertiaryColor};
 `
 
 export const ProfilePicture = styled.div``
