@@ -25,6 +25,8 @@ const corsOptions = {
       callback(new Error('Not allowed by CORS'));
     }
   },
+
+  credential: true,
 };
 
 class App {
@@ -36,7 +38,12 @@ class App {
 
   middlewares() {
     this.app.use(cors(corsOptions));
-    this.app.use(helmet());
+    this.app.use(
+      helmet({
+        crossOriginResourcePolicy: false,
+      }),
+    );
+    this.app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
     // this.app.use(delay(2000));
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());

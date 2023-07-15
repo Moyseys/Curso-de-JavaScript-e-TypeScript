@@ -1,0 +1,32 @@
+services:
+  mysqlDb:
+    image: mysql
+    container_name: mysqlDb
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=senha
+      - MYSQL_DATABASE=sistemaAlunos
+    ports:
+      - 3306:3306
+  api:
+    build: ./api
+    container_name: api
+    volumes:
+      - ./api:/home/api
+    restart: always
+    ports:
+      - 3002:3002
+    command: npm run dev
+    depends_on:
+      - mysqlDb
+  # app:
+  #   build: ./app
+  #   container_name: app
+  #   volumes:
+  #     - ./app:/home/app
+  #   restart: always
+  #   ports:
+  #     - 3000:3000
+  #   command: npm start
+  #   depends_on:
+  #     - api

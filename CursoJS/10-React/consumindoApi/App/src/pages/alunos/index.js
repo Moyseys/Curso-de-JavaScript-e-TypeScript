@@ -63,10 +63,10 @@ export default function Aluno() {
                     <div key={String(aluno.id)}>
                         <ProfilePicture>
                             {
-                                get(alunos, 'Fotos[0].url', false) ? (
+                                get(aluno, 'Fotos[0].url', false) ? (
                                     <img src={aluno.Fotos[0].url} />
                                 ) : (
-                                    <FaUserCircle></FaUserCircle>
+                                    <FaUserCircle size={80}></FaUserCircle>
                                 )
                             }
                         </ProfilePicture>
@@ -82,6 +82,6 @@ export default function Aluno() {
                     </div>
                 ))}
             </AlunosContainer>
-        </Conteiner>
+        </Conteiner >
     )
 }

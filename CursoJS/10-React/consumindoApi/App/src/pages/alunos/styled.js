@@ -20,4 +20,11 @@ export const CriarNovoAluno = styled(Link)`
     color: ${colors.tertiaryColor};
 `
 
-export const ProfilePicture = styled.div``
+export const ProfilePicture = styled.div`
+    width: 100px;
+    img{
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+    }
+`
